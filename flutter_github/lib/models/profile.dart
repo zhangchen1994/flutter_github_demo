@@ -1,3 +1,5 @@
+import 'package:fluttergithub/models/cache_config.dart';
+import 'package:fluttergithub/models/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'profile.g.dart';
@@ -7,7 +9,7 @@ part 'profile.g.dart';
 class Profile extends Object {
 
   @JsonKey(name: 'user')
-  String user;
+  User user;
 
   @JsonKey(name: 'token')
   String token;
@@ -16,7 +18,7 @@ class Profile extends Object {
   int theme;
 
   @JsonKey(name: 'cache')
-  String cache;
+  CacheConfig cache;
 
   @JsonKey(name: 'lastLogin')
   String lastLogin;
@@ -28,8 +30,8 @@ class Profile extends Object {
 
   Profile.init();
 
-  factory Profile.fromJson(Map<String, dynamic> srcJson) => _$profileFromJson(srcJson);
+  factory Profile.fromJson(Map<String, dynamic> srcJson) => _$ProfileFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => _$profileToJson(this);
+  Map<String, dynamic> toJson() => _$ProfileToJson(this);
 
 }

@@ -4,7 +4,7 @@ part 'user.g.dart';
 
 
 @JsonSerializable()
-class user extends Object {
+class User extends Object {
 
   @JsonKey(name: 'login')
   String login;
@@ -102,11 +102,11 @@ class user extends Object {
   @JsonKey(name: 'plan')
   Plan plan;
 
-  user(this.login,this.id,this.nodeId,this.avatarUrl,this.gravatarId,this.url,this.htmlUrl,this.followersUrl,this.followingUrl,this.gistsUrl,this.starredUrl,this.subscriptionsUrl,this.organizationsUrl,this.reposUrl,this.eventsUrl,this.receivedEventsUrl,this.type,this.siteAdmin,this.blog,this.publicRepos,this.publicGists,this.followers,this.following,this.createdAt,this.updatedAt,this.privateGists,this.totalPrivateRepos,this.ownedPrivateRepos,this.diskUsage,this.collaborators,this.twoFactorAuthentication,this.plan,);
+  User(this.login,this.id,this.nodeId,this.avatarUrl,this.gravatarId,this.url,this.htmlUrl,this.followersUrl,this.followingUrl,this.gistsUrl,this.starredUrl,this.subscriptionsUrl,this.organizationsUrl,this.reposUrl,this.eventsUrl,this.receivedEventsUrl,this.type,this.siteAdmin,this.blog,this.publicRepos,this.publicGists,this.followers,this.following,this.createdAt,this.updatedAt,this.privateGists,this.totalPrivateRepos,this.ownedPrivateRepos,this.diskUsage,this.collaborators,this.twoFactorAuthentication,this.plan,);
 
-  factory user.fromJson(Map<String, dynamic> srcJson) => _$userFromJson(srcJson);
+  factory User.fromJson(Map<String, dynamic> srcJson) => _$UserFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => _$userToJson(this);
+  Map<String, dynamic> toJson() => _$UserToJson(this);
 
 }
 

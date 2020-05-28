@@ -6,18 +6,22 @@ part of 'profile.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Profile _$profileFromJson(Map<String, dynamic> json) {
+Profile _$ProfileFromJson(Map<String, dynamic> json) {
   return Profile(
-    json['user'] as String,
+    json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>),
     json['token'] as String,
     json['theme'] as int,
-    json['cache'] as String,
+    json['cache'] == null
+        ? null
+        : CacheConfig.fromJson(json['cache'] as Map<String, dynamic>),
     json['lastLogin'] as String,
     json['locale'] as String,
   );
 }
 
-Map<String, dynamic> _$profileToJson(Profile instance) => <String, dynamic>{
+Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
       'user': instance.user,
       'token': instance.token,
       'theme': instance.theme,

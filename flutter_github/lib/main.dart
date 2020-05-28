@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fluttergithub/common/Global.dart';
+import 'package:fluttergithub/common/git.dart';
 
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  Global.init().then((value) =>  runApp(MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -28,16 +31,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    Git(context).login("zhangchen1994", "zc1170184770").then((value) {
+      print("$value");
+    });
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),

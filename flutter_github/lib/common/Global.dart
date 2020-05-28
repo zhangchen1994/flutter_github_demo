@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttergithub/common/git.dart';
 import 'package:fluttergithub/models/cache_config.dart';
+import 'package:fluttergithub/models/cache_object.dart';
 import 'package:fluttergithub/models/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
