@@ -17,10 +17,10 @@ class Git {
   Options _options;
 
   static Dio dio = new Dio(BaseOptions(
-    baseUrl: 'https://api.github.com/',
+    baseUrl: 'https://api.github.com',
     responseType: ResponseType.plain,
     headers: {
-      HttpHeaders.acceptHeader: "application/vnd.github.squirrel-girl-preview,"
+      HttpHeaders.acceptHeader: "application/vnd.github.v3+json,"
           "application/vnd.github.symmetra-preview+json",
     },
   ));
@@ -34,13 +34,14 @@ class Git {
 
   // 登录接口，登录成功后返回用户信息
   Future<User> login(String login, String pwd) async {
-    String basic = 'Basic' + base64.encode(utf8.encode('$login:$pwd'));
+    String basic = 'Basic ' + base64.encode(utf8.encode('$login:$pwd'));
 
-    var r = await dio.get('/users/$login', options: _options.merge(headers: {
-      HttpHeaders.authorizationHeader: basic
-    }, extra: {
-      'noCache': true, //登录禁用缓存
-    }));
+    var r = await dio.get('/users/$login',
+        options: _options.merge(headers: {
+          HttpHeaders.authorizationHeader: basic
+        }, extra: {
+          'noCache': true, //登录禁用缓存
+        }));
 
     //登录成功后更新公共头（authorization），此后的所有请求都会带上用户身份信息
     dio.options.headers[HttpHeaders.authorizationHeader] = basic;
@@ -53,9 +54,15 @@ class Git {
     return User.fromJson(data);
   }
 
-  Future<List<Entity>> getRepos({Map<String,dynamic> queryParameters, refresh = false}) async {
+  Future getRepos(
+      {Map<String, dynamic> queryParameters, refresh = false}) async {
     if (refresh) {
-      _options.extra.addAll({});
+      _options.extra.addAll({"refresh": true, "list": true});
     }
+
+    var r = await dio.get("/user/repos",
+        queryParameters: queryParameters,
+        options: _options);
+    return r;
   }
 }

@@ -4,7 +4,7 @@ import 'package:fluttergithub/common/git.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  Global.init().then((value) =>  runApp(MyApp()));
+  Global.init().then((value) => runApp(MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -27,24 +27,35 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePageState createState() {
+    return _MyHomePageState();
+  }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    // TODO: implement initState
+    super.initState();
     Git(context).login("zhangchen1994", "zc1170184770").then((value) {
       print("$value");
+
+      Git(context).getRepos(refresh: true, queryParameters: {
+        'page': 0,
+        'page_size': 20,
+      }).then((value) => print("$value"));
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-
-        ),
-      ),// This trailing comma makes auto-formatting nicer for build methods.
+        child: Column(),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
