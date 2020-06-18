@@ -13,7 +13,8 @@ class Global {
     Colors.cyan,
     Colors.teal,
     Colors.green,
-    Colors.red,
+    Colors.purple,
+    Colors.blue
   ];
   static SharedPreferences _sharedPreferences;
   static Profile profile = Profile.init();

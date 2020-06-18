@@ -24,9 +24,11 @@ class NetCache extends Interceptor {
   var cache = LinkedHashMap<String, CacheObject>();
   @override
   Future onRequest(RequestOptions options) async {
+    print("${cache.length}");
     if (!Global.profile.cache.enable) return options;
     //refresh 标记是否下拉刷新，option.extra是专门用于扩展请求参数的
-    bool refresh = options.extra["refresh"] = true;
+    bool refresh = options.extra["refresh"] == true;
+    print(options.extra);
     if (refresh) {
       if (options.extra['list'] == true) {
         cache.removeWhere((key, value) => key.contains(options.path));
@@ -43,6 +45,7 @@ class NetCache extends Interceptor {
       if (ob != null) {
         //若缓存未过期，则返回缓存内容
         if ((DateTime.now().millisecondsSinceEpoch - ob.timeStamp) / 1000 < Global.profile.cache.maxAge) {
+          print("返回缓存内容");
           return cache[key].response;
         } else {
           delete(key);
@@ -72,6 +75,7 @@ class NetCache extends Interceptor {
       }
       String key = options.extra['cacheKey']?? options.uri.toString();
       cache[key] = CacheObject(object);
+      print(cache[key].response.data);
     }
   }
 

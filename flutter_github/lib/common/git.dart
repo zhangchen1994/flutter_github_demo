@@ -54,15 +54,21 @@ class Git {
     return User.fromJson(data);
   }
 
-  Future getRepos(
+  Future<List<Entity>> getRepos(
       {Map<String, dynamic> queryParameters, refresh = false}) async {
     if (refresh) {
       _options.extra.addAll({"refresh": true, "list": true});
+    } else {
+      _options.extra.addAll({"refresh": false, "list": true});
     }
 
+    print(_options.extra);
     var r = await dio.get("/user/repos",
         queryParameters: queryParameters,
         options: _options);
-    return r;
+    List<dynamic> data = json.decode(r.data);
+    List<Entity> entices = getEntityList(data);
+
+    return entices;
   }
 }
